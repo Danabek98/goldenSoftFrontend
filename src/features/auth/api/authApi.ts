@@ -1,7 +1,8 @@
 // src/features/auth/authApi.ts
 
-import { LoginRequest, LoginResponse } from '../../../types/auth';
+import { LoginRequest, LoginResponse } from '../types/auth';
 
+// Добавляем export для функции, чтобы файл считался модулем
 export async function loginUser(
   credentials: LoginRequest
 ): Promise<LoginResponse> {
@@ -20,3 +21,6 @@ export async function loginUser(
   const data: LoginResponse = await response.json();
   return data;
 }
+
+// Альтернативно можно добавить пустой export в конце файла
+// export {};

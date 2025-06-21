@@ -44,89 +44,46 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
 src/
+├── app/ # Инициализация приложения
+│ ├── styles/ # Глобальные стили (reset.css, variables.css)
+│ ├── store/ # Корневой store (Redux, Zustand)
+│ ├── providers/ # Провайдеры (Theme, Router, etc.)
+│ └── App.tsx # Корневой компонент
 │
-├── assets/ # Статические файлы
-│ ├── fonts/ # Шрифты
-│ ├── images/ # Изображения
-│ └── svg/ # SVG иконки/изображения
+├── pages/ # Маршрутизация (Next.js/React Router)
+│ ├── Home/ # Страница
+│ │ ├── index.tsx # Логика страницы
+│ │ └── model/ # Логика, специфичная для страницы
+│ └── Profile/ # Другая страница
 │
-├── components/ # Переиспользуемые UI-компоненты
-│ ├── common/ # Очень простые компоненты (кнопки, инпуты)
-│ ├── ui/ # Более сложные UI компоненты
-│ └── ... # Можно группировать по domain/feature при необходимости
+├── features/ # Бизнес-фичи (основная единица структуры)
+│ └── auth/ # Пример фичи (авторизация)
+│ ├── api/ # API-запросы (authApi.ts)
+│ ├── lib/ # Вспомогательные функции (validators.ts)
+│ ├── model/ # Состояние (store slices, actions)
+│ ├── ui/ # UI-компоненты фичи
+│ │ ├── LoginForm/ # Компонент с внутренней структурой
+│ │ │ ├── ui/ # Presentational-часть
+│ │ │ └── model/ # Логика (хуки, сторадж)
+│ │ └── hooks/ # Фиче-специфичные хуки (useAuth.ts)
+│ └── index.ts # Публичный API фичи
 │
-├── containers/ # Компоненты-контейнеры (подключенные к стору/имеющие логику)
+├── entities/ # Бизнес-сущности (User, Product, Order)
+│ └── user/ # Пример сущности
+│ ├── api/ # Запросы к API пользователей
+│ ├── model/ # Стейт пользователей
+│ └── ui/ # Компоненты для работы с сущностью
 │
-├── pages/ # Компоненты страниц
-│ ├── Home/
-│ │ ├── components/ # Компоненты используемые только на этой странице
-│ │ ├── Home.tsx
-│ │ └── Home.module.css
-│ └── .../
+├── shared/ # Переиспользуемый код
+│ ├── api/ # Базовые API-конфиги (axios, RTK Query)
+│ ├── lib/ # Утилиты (dateFormatter, errorParser)
+│ ├── ui/ # UI-кит (кнопки, инпуты, модалки)
+│ │ ├── Button/
+│ │ └── Input/
+│ └── config/ # Конфиги (routes, themes)
 │
-├── hooks/ # Кастомные хуки
-│
-├── store/ # State management (Redux/MobX/Zustand и т.д.)
-│ ├── slices/ # Redux Toolkit slices
-│ ├── actions/ # Redux actions (если не используем RTK)
-│ └── reducers/ # Redux reducers (если не используем RTK)
-│
-├── services/ # API слои и сервисы
-│ ├── api/ # Базовые API конфиги (axios/RTK Query instances)
-│ └── userService.ts # Пример сервиса
-│
-├── utils/ # Вспомогательные функции/утилиты
-│
-├── constants/ # Константы приложения
-│
-├── types/ # Глобальные типы (если используем TypeScript)
-│
-├── styles/ # Глобальные стили, темы
-│ ├── base.css # Сброс стилей, базовые стили
-│ ├── theme.css # Переменные тем
-│ └── .../
-│
-├── App.tsx # Главный компонент приложения
-├── main.tsx # Точка входа
-└── index.css # Глобальные стили
-assets/ - Только статические файлы, которые не обрабатываются кодом (кроме импорта)
-
-    components/ - "Тупые" компоненты (presentational):
-
-        Получают данные только через props
-
-        Не содержат бизнес-логики
-
-        Максимально переиспользуемые
-
-    containers/ - "Умные" компоненты:
-
-        Подключены к стору
-
-        Содержат бизнес-логику
-
-        Управляют состоянием дочерних компонентов
-
-    pages/ - Компоненты страниц:
-
-        Каждая страница в своей папке
-
-        Могут иметь локальные компоненты в подпапке
-
-        Часто являются контейнерами
-
-    hooks/ - Кастомные хуки для переиспользуемой логики
-
-    store/ - Для больших проектов с состоянием:
-
-        Лучше использовать Redux Toolkit (RTK)
-
-        Для маленьких проектов - Context API + useReducer
-
-    services/ - Слой для работы с API:
-
-        Абстракция над HTTP-клиентом
-
-        Группировка запросов по доменам
+└── widgets/ # Независимые виджеты (верхний уровень)
+└── header/ # Пример (шапка сайта)
+├── lib/ # Логика виджета
+└── ui/ # Отображение
