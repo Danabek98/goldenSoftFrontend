@@ -14,6 +14,8 @@ export const useLogin = () => {
   const [email, setEmail] = useState('');
   // Состояние для хранения пароля
   const [password, setPassword] = useState('');
+  // Состояние для хранения поторного пароля
+  const [rePassword, setRePassword] = useState('');
   // Состояние для хранения ошибок (null когда ошибок нет)
   const [error, setError] = useState<string | null>(null);
   // Флаг состояния загрузки (true во время выполнения запроса)
@@ -37,6 +39,14 @@ export const useLogin = () => {
     setError(null); // Сбрасываем ошибки при изменении данных
   };
 
+  /**
+   * Обработчик изменения повторного пароля
+   * @param e - Событие изменения input элемента
+   */
+  const handleRePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRePassword(e.target.value); // Обновляем состояние пароля
+    setError(null); // Сбрасываем ошибки при изменении данных
+  };
   /**
    * Обработчик отправки формы
    * @param e - Событие отправки формы
@@ -65,10 +75,12 @@ export const useLogin = () => {
   return {
     email, // Текущее значение email
     password, // Текущее значение пароля
+    rePassword, // Текущее значение повторного пароля
     error, // Текущая ошибка (или null)
     isLoading, // Флаг загрузки
     handleEmailChange, // Обработчик изменения email
     handlePasswordChange, // Обработчик изменения пароля
+    handleRePasswordChange, // Обработчик изменения пароля
     handleSubmit, // Обработчик отправки формы
   };
 };

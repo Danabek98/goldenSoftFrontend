@@ -11,10 +11,40 @@
 }
 
 .button:hover {
-  background-color: #1565c0;
+  background-color: #56a9f8;
 }
 
 .button:disabled {
   background-color: #e0e0e0;
   cursor: not-allowed;
+}
+
+.button:active {
+  background-color: #2e81d0;
+}
+
+/* Стили для состояния загрузки */
+.button[aria-busy='true'] {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.button[aria-busy='true']::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }

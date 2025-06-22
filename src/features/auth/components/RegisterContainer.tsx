@@ -3,7 +3,7 @@ import { useLogin } from '../hooks/useLogin';
 import styles from './LoginContainer.module.css';
 import { Button } from '../../../shared/ui/index';
 
-export const LoginContainer = () => {
+export const RegistrationContainer = () => {
   const {
     email,
     password,
@@ -16,7 +16,7 @@ export const LoginContainer = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Вход в систему</h2>
+      <h2 className={styles.title}>Регистрация</h2>
 
       {error && <div className={styles.error}>{error}</div>}
 
@@ -57,7 +57,7 @@ export const LoginContainer = () => {
 
         {/* Кнопка отправки формы */}
         <Button type="submit" disabled={isLoading} aria-busy={isLoading}>
-          {isLoading ? <span>Вход...</span> : <span>Войти</span>}
+          {isLoading ? <span>Регистрируем...</span> : <span>Регистрация</span>}
         </Button>
       </form>
     </div>
