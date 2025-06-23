@@ -5,59 +5,60 @@ import { Button } from '../../../shared/ui/index';
 
 export const LoginContainer = () => {
   const {
-    email,
-    password,
-    error,
-    isLoading,
-    handleEmailChange,
-    handlePasswordChange,
-    handleSubmit,
+    values: { email, password },
+    errors,
+    handlers: { handleEmailChange, handlePasswordChange },
+    validateForm,
   } = useLogin();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return; // Форма не валидна
+    }
+
+    // Отправка данных...
+  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Вход в систему</h2>
 
-      {error && <div className={styles.error}>{error}</div>}
-
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* Поле ввода email */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>
-            Email:
-          </label>
+        <div>
+          <label>Email:</label>
           <input
-            id="email"
             type="email"
             value={email}
-            onChange={handleEmailChange}
-            className={styles.input}
-            disabled={isLoading}
-            required
-            aria-describedby={error ? 'email-error' : undefined}
+            onChange={(e) => handleEmailChange(e.target.value)}
           />
+          {errors.email && <span className="error">{errors.email}</span>}
         </div>
-
-        {/* Поле ввода пароля */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="password" className={styles.label}>
-            Пароль:
-          </label>
+        <div>
+          <label>Пароль:</label>
           <input
-            id="password"
             type="password"
             value={password}
-            onChange={handlePasswordChange}
-            className={styles.input}
-            disabled={isLoading}
-            required
-            aria-describedby={error ? 'password-error' : undefined}
+            onChange={(e) => handlePasswordChange(e.target.value)}
           />
+          {errors.password && <span className="error">{errors.password}</span>}
+        </div>
+        {/* Поле ввода пароля */}
+        <div>
+          <label>Пароль:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => handlePasswordChange(e.target.value)}
+          />
+          {errors.password && <span className="error">{errors.password}</span>}
         </div>
 
         {/* Кнопка отправки формы */}
-        <Button type="submit" disabled={isLoading} aria-busy={isLoading}>
-          {isLoading ? <span>Вход...</span> : <span>Войти</span>}
+        <Button type="submit">
+          <span>Войти</span>
         </Button>
       </form>
     </div>

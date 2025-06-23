@@ -18,3 +18,18 @@ export interface LoginResponse {
   userId: number;
   email: string;
 }
+
+export interface RegistrationRequest {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+}
+
+export interface RegistrationResponse {
+  userId: number;
+  name: string;
+  email: string;
+  password: string; // Обычно бэкенд не возвращает пароль, это пример
+  phone: string;
+}
