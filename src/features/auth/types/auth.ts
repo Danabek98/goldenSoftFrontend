@@ -15,8 +15,11 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
-  userId: number;
-  email: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
 }
 
 export interface RegistrationRequest {

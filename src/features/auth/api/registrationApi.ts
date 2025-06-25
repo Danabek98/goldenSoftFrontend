@@ -1,7 +1,6 @@
 import { RegistrationRequest, RegistrationResponse } from '../types/auth';
 // Конфигурация
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/';
 
 /**
  * Регистрация нового пользователя
@@ -12,7 +11,7 @@ const API_BASE_URL =
 export const registerUser = async (
   userData: RegistrationRequest
 ): Promise<RegistrationResponse> => {
-  const url = `${API_BASE_URL}/auth/register`;
+  const url = `${API_BASE_URL}user/registration`;
 
   try {
     const response = await fetch(url, {

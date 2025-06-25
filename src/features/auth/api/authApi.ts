@@ -1,12 +1,11 @@
-// src/features/auth/authApi.ts
-
 import { LoginRequest, LoginResponse } from '../types/auth';
 
-// Добавляем export для функции, чтобы файл считался модулем
-export async function loginUser(
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+export const loginUser = async (
   credentials: LoginRequest
-): Promise<LoginResponse> {
-  const response = await fetch('http://localhost:8080/api/login', {
+): Promise<LoginResponse> => {
+  const response = await fetch(`${API_BASE_URL}/user/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,13 +13,31 @@ export async function loginUser(
     body: JSON.stringify(credentials),
   });
 
+  // Ошибка — пытаемся разобрать JSON
+  const errorData = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    throw new Error(`Ошибка входа: ${response.statusText}`);
+    let message = 'Ошибка авторизации';
+
+    switch (response.status) {
+      case 400:
+        message = errorData.message || 'Неверный формат запроса';
+        break;
+      case 401:
+        message = 'Неправильный логин или пароль';
+        break;
+      case 403:
+        message = 'Доступ запрещён';
+        break;
+      case 500:
+        message = 'Ошибка сервера. Попробуйте позже';
+        break;
+      default:
+        message = errorData.message || `Ошибка: ${response.status}`;
+    }
+
+    throw new Error(message);
   }
 
-  const data: LoginResponse = await response.json();
-  return data;
-}
-
-// Альтернативно можно добавить пустой export в конце файла
-// export {};
+  return response.json();
+};

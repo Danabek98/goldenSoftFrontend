@@ -2,8 +2,9 @@ import React from 'react';
 import { RegistrationContainer } from '../features/auth/index';
 import { useRegister } from '../features/auth/hooks/useRegister';
 
-const LoginPage = () => {
+const RegistrationPage = () => {
   const { values, errors, validateForm } = useRegister();
+
   return (
     <div className="login-page">
       <RegistrationContainer />
@@ -11,4 +12,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

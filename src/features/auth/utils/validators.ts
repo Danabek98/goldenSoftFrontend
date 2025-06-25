@@ -89,3 +89,15 @@ export const validateConfirmPassword = (
   if (password !== confirmPassword) return 'Пароли не совпадают';
   return null;
 };
+
+export const validateLoginEmail = (email: string): string | null => {
+  if (!email) return 'Введите email';
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!regex.test(email)) return 'Некорректный формат email';
+  return null;
+};
+
+export const validateLoginPassword = (password: string): string | null => {
+  if (!password) return 'Введите пароль';
+  return null;
+};

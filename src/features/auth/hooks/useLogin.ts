@@ -1,41 +1,68 @@
 import { useState } from 'react';
-import { validateEmail, validatePassword } from '../utils/validators';
+import { validateLoginEmail, validateLoginPassword } from '../utils/validators';
 
 export const useLogin = () => {
-  // Явно указываем тип состояния
-  const [values, setValues] = useState<{
-    email: string;
-    password: string;
-  }>({ email: '', password: '' });
-
+  const [values, setValues] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<{
     email: string | null;
     password: string | null;
-  }>({ email: null, password: null });
+  }>({
+    email: null,
+    password: null,
+  });
 
-  const handleEmailChange = (value: string) => {
-    setValues((prev) => ({ ...prev, email: value }));
-    setErrors((prev) => ({ ...prev, email: validateEmail(value) }));
+  const handleEmailChange = (email: string) => {
+    setValues((prev) => ({ ...prev, email }));
+    setErrors((prev) => ({ ...prev, email: null }));
   };
 
-  const handlePasswordChange = (value: string) => {
-    setValues((prev) => ({ ...prev, password: value }));
-    setErrors((prev) => ({ ...prev, password: validatePassword(value) }));
+  const handlePasswordChange = (password: string) => {
+    setValues((prev) => ({ ...prev, password }));
+    setErrors((prev) => ({ ...prev, password: null }));
   };
 
   const validateForm = () => {
-    const newErrors = {
-      email: validateEmail(values.email),
-      password: validatePassword(values.password),
-    };
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== null);
+    const emailError = validateLoginEmail(values.email);
+    const passwordError = validateLoginPassword(values.password);
+
+    setErrors({
+      email: emailError,
+      password: passwordError,
+    });
+
+    return !emailError && !passwordError;
+  };
+
+  const submitForm = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Ошибка авторизации');
+      }
+
+      const data = await response.json();
+      console.log('Успешный вход:', data);
+      // Тут можешь сохранить токен, перейти на страницу и т.д.
+    } catch (err: any) {
+      console.error('Ошибка входа:', err.message);
+      // можно отобразить err.message в UI
+    }
   };
 
   return {
     values,
     errors,
-    handlers: { handleEmailChange, handlePasswordChange },
+    handlers: {
+      handleEmailChange,
+      handlePasswordChange,
+    },
     validateForm,
+    submitForm,
   };
 };
