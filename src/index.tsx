@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import LoginPage from './pages/loginPage';
-import RegistrationPage from './pages/registrationPage';
+import AppRouter from './routes/AppRoutes';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     {/* <RegistrationPage /> */}
-    <LoginPage />
+    <AppRouter />
   </React.StrictMode>
 );
 

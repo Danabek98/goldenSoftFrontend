@@ -41,3 +41,15 @@ export const loginUser = async (
 
   return response.json();
 };
+
+export const logoutUser = async (): Promise<void> => {
+  const res = await fetch(`${API_BASE_URL}/user/logout`, {
+    method: 'POST',
+    credentials: 'include', // важно: для отправки куки
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'Ошибка при выходе');
+  }
+};

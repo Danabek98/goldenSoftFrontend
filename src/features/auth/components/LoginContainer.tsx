@@ -4,6 +4,7 @@ import { useLogin } from '../hooks/useLogin';
 import styles from './LoginContainer.module.css';
 import { Button } from '../../../shared/ui/index';
 import { loginUser } from '../api/authApi';
+import { useNavigate } from 'react-router-dom'; // для перехода
 
 export const LoginContainer = () => {
   const {
@@ -14,10 +15,19 @@ export const LoginContainer = () => {
   } = useLogin();
 
   const [submitError, setSubmitError] = useState<string | null>(null);
-
+  const navigate = useNavigate(); // хук для перехода
+  // const handleLogout = async () => {
+  //   try {
+  //     await logoutUser();
+  //     localStorage.removeItem('token'); // если хранишь токен и в localStorage
+  //     // navigate('/login');
+  //   } catch (err: any) {
+  //     console.error(err.message);
+  //   }
+  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitError(null); // очищаем старую ошибку
+    setSubmitError(null);
 
     if (!validateForm()) return;
 
@@ -66,6 +76,17 @@ export const LoginContainer = () => {
           <span>Войти</span>
         </Button>
       </form>
+
+      <div className={styles.registerBlock}>
+        <p className={styles.registerText}>Ещё не зарегистрированы?</p>
+        <button
+          type="button"
+          className={styles.registerButton}
+          onClick={() => navigate('/register')}
+        >
+          Зарегистрироваться
+        </button>
+      </div>
     </div>
   );
 };

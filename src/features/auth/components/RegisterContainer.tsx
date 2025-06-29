@@ -4,10 +4,12 @@ import { useRegister } from '../hooks/useRegister';
 import styles from './LoginContainer.module.css';
 import { Button } from '../../../shared/ui/index';
 import { formatPhoneLive } from '../utils/formatters/phone';
+import { useNavigate } from 'react-router-dom'; // для перехода
 
 export const RegistrationContainer = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // хук для перехода
 
   const {
     values: { email, name, password, number, rePassword },
@@ -133,6 +135,16 @@ export const RegistrationContainer = () => {
         <Button type="submit" disabled={isLoading} aria-busy={isLoading}>
           <span>{isLoading ? 'Регистрация...' : 'Зарегистрироваться'}</span>
         </Button>
+        <div className={styles.registerBlock}>
+          <p className={styles.registerText}>Вы уже зарегистрированы?</p>
+          <button
+            type="button"
+            className={styles.registerButton}
+            onClick={() => navigate('/login')}
+          >
+            Войти
+          </button>
+        </div>
       </form>
     </div>
   );

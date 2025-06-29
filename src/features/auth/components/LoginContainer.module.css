@@ -67,3 +67,27 @@
   margin: 10px 0;
   font-size: 1rem;
 }
+
+.registerBlock {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.registerText {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.registerButton {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.registerButton:hover {
+  color: #0056b3;
+}
