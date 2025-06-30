@@ -34,8 +34,8 @@ export const LoginContainer = () => {
     try {
       const response = await loginUser({ email, password });
       console.log('Успешный вход:', response);
-      localStorage.setItem('token', response.token);
-      // navigate('/dashboard');
+      // localStorage.setItem('token', response.token);
+      navigate('/');
     } catch (error: any) {
       setSubmitError(error.message || 'Ошибка входа');
     }

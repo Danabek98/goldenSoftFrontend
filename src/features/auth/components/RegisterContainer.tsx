@@ -42,7 +42,7 @@ export const RegistrationContainer = () => {
 
       const response = await registerUser(userData);
       console.log('Успешная регистрация:', response);
-      // TODO: Перенаправление после регистрации
+      navigate('/login');
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

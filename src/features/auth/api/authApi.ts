@@ -1,7 +1,6 @@
 import { LoginRequest, LoginResponse } from '../types/auth';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
-
 export const loginUser = async (
   credentials: LoginRequest
 ): Promise<LoginResponse> => {
@@ -10,18 +9,18 @@ export const loginUser = async (
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include', // если работаешь с куками
     body: JSON.stringify(credentials),
   });
 
-  // Ошибка — пытаемся разобрать JSON
-  const errorData = await response.json().catch(() => ({}));
+  const data = await response.json().catch(() => ({})); // Один раз парсим тело
 
   if (!response.ok) {
     let message = 'Ошибка авторизации';
 
     switch (response.status) {
       case 400:
-        message = errorData.message || 'Неверный формат запроса';
+        message = data.message || 'Неверный формат запроса';
         break;
       case 401:
         message = 'Неправильный логин или пароль';
@@ -33,13 +32,13 @@ export const loginUser = async (
         message = 'Ошибка сервера. Попробуйте позже';
         break;
       default:
-        message = errorData.message || `Ошибка: ${response.status}`;
+        message = data.message || `Ошибка: ${response.status}`;
     }
 
     throw new Error(message);
   }
 
-  return response.json();
+  return data; // Возвращаем уже распарсенные данные
 };
 
 export const logoutUser = async (): Promise<void> => {

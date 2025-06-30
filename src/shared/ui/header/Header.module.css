@@ -1,7 +1,14 @@
+/* src/index.css или src/assets/styles/fonts.css */
+@font-face {
+  font-family: 'SFPro';
+  src: url('../../assets/fonts/SFProText-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
 .container {
   width: 1440px;
   height: 126px;
-  display: flex;
   margin: 0 auto;
 }
 
@@ -9,5 +16,85 @@
   width: 100%;
   height: 44px;
   background-color: #454f5b;
-  text-align: center;
+  color: white;
+  display: flex;
+  position: relative;
+}
+
+.top > p {
+  margin: auto;
+}
+
+.top > u {
+  margin: 0px 100px 15px auto;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.Header {
+  width: 100%;
+  height: 82px;
+  border-bottom: 1px solid #454f5b;
+  display: flex;
+  font-family: SFPro;
+}
+
+.logo {
+  margin: 20px 100px 20px 100px;
+}
+
+.navigation {
+  width: 502px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14pt;
+}
+.navigation p {
+  cursor: pointer;
+}
+.icons {
+  width: 146px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 100px 0 auto;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.userWrapper {
+  position: relative;
+}
+
+.dropdown {
+  width: 120px;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.3rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14pt;
+}
+
+.dropdown button:hover {
+  background-color: #454f5b;
+  color: #fff;
 }

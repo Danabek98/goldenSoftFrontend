@@ -1,0 +1,53 @@
+.container {
+  width: 1440px;
+  height: 774px;
+  margin: 0 auto;
+  background-color: aqua;
+}
+
+.product {
+  width: 1440px;
+  height: 620px;
+  display: flex;
+  background-color: aquamarine;
+}
+.product div {
+  width: 720px;
+  height: 620px;
+}
+
+.switcher {
+  width: 180px;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dotContainer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+.dot {
+  font-size: 28px; /* Увеличиваем размер точки */
+  line-height: 1;
+  color: #333; /* Цвет неактивной точки */
+}
+
+.activeDot {
+  border: 2px solid #000; /* Обводка для активной точки */
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+}
+
+.activeDot .dot {
+  color: #000; /* Цвет активной точки */
+  font-size: 36px; /* Можно сделать ещё больше при активности */
+}
+.arrows {
+  font-size: 30pt;
+}
