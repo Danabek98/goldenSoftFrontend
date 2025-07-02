@@ -1,22 +1,55 @@
+@font-face {
+  font-family: 'SFPro';
+  src: url('../../../shared/assets/fonts/SFProText-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
 .container {
   width: 1440px;
   height: 774px;
   margin: 0 auto;
   background-color: aqua;
+  position: relative;
+  padding-top: 150px;
+  box-sizing: border-box;
+  font-family: SFPro;
 }
 
 .product {
   width: 1440px;
-  height: 620px;
+  height: 450px;
   display: flex;
   background-color: aquamarine;
 }
-.product div {
+.product > div {
   width: 720px;
-  height: 620px;
+  height: 100%;
+}
+
+.prices {
+  display: flex;
+  width: 220px;
+}
+.prices > h3 {
+  margin-top: 0;
+}
+.price {
+  margin-bottom: 5px;
+}
+.oldPrice {
+  color: gray;
+  text-decoration: line-through;
+  margin-left: 20px;
 }
 
 .switcher {
+  position: absolute;
+  left: 50%; /* Сдвигаем в середину */
+  transform: translateX(
+    -50%
+  ); /* Корректируем положение на половину своей ширины */
+  bottom: 48px;
   width: 180px;
   height: 32px;
   display: flex;
@@ -34,20 +67,27 @@
 .dot {
   font-size: 28px; /* Увеличиваем размер точки */
   line-height: 1;
-  color: #333; /* Цвет неактивной точки */
+  color: #add7ff; /* Цвет неактивной точки */
 }
 
 .activeDot {
-  border: 2px solid #000; /* Обводка для активной точки */
+  border: 2px solid #4295e4; /* Обводка для активной точки */
   border-radius: 50%;
   width: 21px;
   height: 21px;
+  padding-top: 0.1px;
 }
 
 .activeDot .dot {
-  color: #000; /* Цвет активной точки */
+  color: #4295e4;
+  /* Цвет активной точки */
   font-size: 36px; /* Можно сделать ещё больше при активности */
 }
 .arrows {
   font-size: 30pt;
+}
+
+.btn {
+  width: 220px;
+  height: 50px;
 }

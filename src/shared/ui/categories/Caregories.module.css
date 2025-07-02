@@ -1,0 +1,112 @@
+/* src/index.css или src/assets/styles/fonts.css */
+@font-face {
+  font-family: 'SFPro';
+  src: url('../../assets/fonts/SFProText-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+  font-family: 'SFPro';
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 36pt;
+  font-weight: 400;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.boxes {
+  width: 1240px;
+  height: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.boxes > div {
+  width: 600px;
+  height: 470px;
+  background-color: #fafafa;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+}
+.boxes img {
+  width: 350px;
+  height: 350px;
+}
+
+.bottom {
+  margin-top: auto;
+}
+
+.left {
+  width: 220px;
+  height: 100px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.left > p {
+  font-size: 18pt;
+  margin: 0;
+}
+
+.button {
+  /* Размеры */
+  width: 220px;
+  height: 50px;
+  margin-top: auto;
+
+  /* Фон и граница */
+  background: #ffffff; /* Чистый белый */
+  border: 1px solid #e0e0e0; /* Тонкая серая граница */
+  border-radius: 4px; /* Слегка скругленные углы (не круглые) */
+
+  /* Текст */
+  color: black; /* Темно-серый текст */
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  /* Эффекты */
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  /* Убираем дефолтные тени и отступы */
+  box-shadow: none;
+  outline: none;
+  padding: 0;
+}
+
+/* Эффект при наведении */
+.button:hover {
+  background: #f8f8f8; /* Легкий серый фон */
+  border-color: #d0d0d0; /* Чуть темнее граница */
+}
+
+/* Эффект при нажатии */
+.button:active {
+  background: #f0f0f0; /* Еще темнее фон */
+  transform: translateY(1px); /* Легкое "нажатие" */
+}
+
+/* Фокус (для доступности) */
+.button:focus {
+  border-color: #a0a0a0; /* Чуть заметнее граница */
+}
+
+.allCategories {
+  width: 220px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 50px;
+}

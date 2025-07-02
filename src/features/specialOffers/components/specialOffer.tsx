@@ -17,11 +17,14 @@ export const SpecialOffers = () => {
           <img src="" alt="" />
         </div>
         <div className={styles.right}>
-          <h1>name</h1>
-          <p>discreption</p>
-          <p>Цена</p>
-          <h2>prise</h2>
-          <Button>Добавить в корзину</Button>
+          <h1 className={styles.title}>name</h1>
+          <p className={styles.discreption}>discreption</p>
+          <p className={styles.price}>Цена</p>
+          <div className={styles.prices}>
+            <h3>33000 ₸</h3>
+            <h3 className={styles.oldPrice}>35000 ₸</h3>
+          </div>
+          <Button className={styles.btn}>Добавить в корзину</Button>
         </div>
       </div>
 

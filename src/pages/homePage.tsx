@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '../shared/ui/header/Header';
+import { Header, WhyUs, Categories } from '../shared/ui/index';
 import { SpecialOffers } from '../features/specialOffers/components/specialOffer';
 
 const HomePage = () => {
@@ -7,6 +7,8 @@ const HomePage = () => {
     <div>
       <Header />
       <SpecialOffers />
+      <WhyUs />
+      <Categories />
     </div>
   );
 };
