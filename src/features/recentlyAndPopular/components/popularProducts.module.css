@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'SFPro';
+  src: url('../../../shared/assets/fonts/SFProText-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  font-family: 'SFPro';
+  width: 1242px;
+  height: 552px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.title {
+  font-size: 36pt;
+  font-weight: 400;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title > p {
+  padding: 0;
+  margin: 0;
+}
+.switcher {
+  font-size: 26pt;
+  margin-top: 10px;
+}
+
+.boxes {
+  width: 1242px;
+  height: 426px;
+  background-color: antiquewhite;
+  margin-top: 64px;
+  display: flex;
+  justify-content: space-between;
+}
+.boxes > div {
+  width: 288px;
+  height: 426px;
+  background-color: blue;
+}
+
+.top {
+  width: 288px;
+  height: 320px;
+  background-color: beige;
+}
+.up {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.textArea {
+  width: 288px;
+  height: 106px;
+}
+.name {
+  font-size: 14pt;
+  margin: 0;
+}
+.prices {
+  font-weight: bold;
+  font-size: 16pt;
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+}
+.prices > del {
+  color: grey;
+  margin-left: 10px;
+}
+.inStock {
+  display: flex;
+  font-size: 16pt;
+}
+.inStock > div {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  margin-right: 10px;
+  color: green;
+}
+.sale {
+  width: 51px;
+  height: 30px;
+  background-color: white;
+  text-align: center;
+  padding-top: 5px;
+  box-sizing: border-box;
+}
