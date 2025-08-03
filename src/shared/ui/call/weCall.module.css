@@ -1,0 +1,50 @@
+/* src/index.css или src/assets/styles/fonts.css */
+@font-face {
+  font-family: 'SFPro';
+  src: url('../../assets/fonts/SFProText-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 1440px;
+  height: 332px;
+  background-color: #f2f8ff;
+  margin: 0 auto;
+  padding-top: 64px;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 36pt;
+  font-weight: 400;
+  text-align: center;
+}
+
+.discreption {
+  width: 518px;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 24px;
+}
+
+.btn {
+  width: 220px;
+  height: 50px;
+}
+.form {
+  width: 748px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.input {
+  width: 220px;
+  height: 50px;
+}

@@ -23,14 +23,19 @@ export const registerUser = async (
     });
 
     if (!response.ok) {
-      // Пытаемся распарсить ошибку от сервера
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Ошибка регистрации');
+      const message = errorData.message || 'Ошибка регистрации';
+
+      // Обрабатываем специфические ошибки от сервера
+      if (message.includes('user with this email or phone already exists')) {
+        throw new Error('Email или номер телефона уже занят');
+      }
+
+      throw new Error(message);
     }
 
     return await response.json();
   } catch (error) {
-    // Типизация ошибки для TypeScript
     if (error instanceof Error) {
       throw new Error(`Не удалось зарегистрироваться: ${error.message}`);
     }
