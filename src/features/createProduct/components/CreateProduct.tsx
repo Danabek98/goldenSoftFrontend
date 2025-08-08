@@ -1,51 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CreateProduct.module.css';
 import { useCreateProductForm } from '../hooks/useCreateProduct';
+import { createProduct } from '../api/apiProducts'; // 👈 импорт API-функции
+import { fetchAllColors } from '../api/apiColors';
+import { Color } from '../types/formData';
 
 export const CreateProduct = () => {
   const { formData, setFormData, handleChange, handleFileChange } =
     useCreateProductForm();
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   price: 0,
-  //   oldPrice: 0,
-  //   inStock: true,
-  //   equipment: '',
-  //   weight: 0,
-  //   size: '',
-  //   hasApp: false,
-  //   unlockType: '',
-  //   material: '',
-  //   description: '',
-  //   mainImage: '',
-  //   images: [] as File[],
-  //   colors: [{ id: '' }],
-  // });
-
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   const { name, value, type } = e.target;
-
-  //   if (type === 'checkbox') {
-  //     const { checked } = e.target as HTMLInputElement;
-  //     setFormData((prev) => ({ ...prev, [name]: checked }));
-  //   } else if (type === 'number') {
-  //     setFormData((prev) => ({ ...prev, [name]: Number(value) }));
-  //   } else {
-  //     setFormData((prev) => ({ ...prev, [name]: value }));
-  //   }
-  // };
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     const newFiles = Array.from(e.target.files);
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       images: [...prev.images, ...newFiles],
-  //     }));
-  //   }
-  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,34 +27,66 @@ export const CreateProduct = () => {
     data.append('description', formData.description);
     data.append('mainImage', formData.mainImage);
 
-    // Добавляем файлы
-    formData.images.forEach((file, index) => {
-      data.append('images', file); // или `images[${index}]`
+    formData.images.forEach((file) => {
+      data.append('images', file);
     });
 
-    // Добавим цвета
     formData.colors.forEach((color, index) => {
-      data.append(`colors[${index}]`, color.id);
+      data.append(`colors[${index}]`, String(color.id));
     });
 
     try {
-      const response = await fetch('http://localhost:8080/products/create', {
-        method: 'POST',
-        body: data,
-      });
-
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}));
-        throw new Error(error.message || 'Ошибка при создании продукта');
-      }
-
-      const result = await response.json();
+      const result = await createProduct(data); // 👈 вызов API-функции
       alert(`Товар создан: ${result.name}`);
     } catch (err: any) {
       alert(err.message || 'Неизвестная ошибка');
     }
   };
 
+  const [availableColors, setAvailableColors] = useState<Color[]>([]);
+
+  const [newColorName, setNewColorName] = useState('');
+  const [newColorHex, setNewColorHex] = useState('');
+
+  const handleAddNewColor = async () => {
+    if (!newColorName || !newColorHex) return;
+    try {
+      const res = await fetch('http://localhost:8080/upload/color', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newColorName, hex_code: newColorHex }),
+      });
+
+      if (!res.ok) throw new Error('Ошибка при добавлении цвета');
+      const newColor = await res.json();
+
+      // Добавим в список
+      setAvailableColors((prev) => [...(prev || []), newColor]);
+
+      setFormData((prev) => ({
+        ...prev,
+        colors: [...prev.colors, newColor],
+      }));
+
+      setNewColorName('');
+      setNewColorHex('');
+    } catch (err: any) {
+      alert(err.message || 'Ошибка при добавлении цвета');
+    }
+  };
+
+  useEffect(() => {
+    const loadColors = async () => {
+      try {
+        const colors = await fetchAllColors();
+        setAvailableColors(colors);
+      } catch (err) {
+        console.error('Ошибка загрузки цветов:', err);
+      }
+    };
+
+    loadColors();
+  }, []);
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2>Создание продукта</h2>
@@ -220,6 +214,86 @@ export const CreateProduct = () => {
           checked={formData.hasApp}
           onChange={handleChange}
         />
+      </label>
+
+      <label className={styles.label}>Выберите цвета:</label>
+
+      {/*  Блок выбранных цветов */}
+      {formData.colors.length > 0 && (
+        <div className={styles.selectedColorArea}>
+          {formData.colors.map((color) => (
+            <div key={color.id} className={styles.selectedColor}>
+              <span
+                style={{
+                  backgroundColor: color.hexCode,
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  display: 'inline-block',
+                  marginRight: '8px',
+                }}
+              >
+                {color.name}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    colors: prev.colors.filter((c) => c.id !== color.id),
+                  }));
+                }}
+              >
+                Удалить
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/*  Выпадающий список для добавления нового цвета */}
+      <select
+        value=""
+        onChange={(e) => {
+          const selectedId = parseInt(e.target.value, 10); // Убедимся что это число
+          const selectedColor = availableColors.find(
+            (color) => Number(color.id) === selectedId
+          );
+
+          if (
+            selectedColor &&
+            !formData.colors.some((c) => c.id === Number(selectedColor.id))
+          ) {
+            setFormData((prev) => ({
+              ...prev,
+              colors: [...prev.colors, selectedColor as Color],
+            }));
+          }
+        }}
+        className={styles.colorSelect}
+      >
+        <option value="" disabled>
+          Выберите цвет
+        </option>
+        {availableColors
+          .filter((color) => !formData.colors.some((c) => c.id === color.id))
+          .map((color) => (
+            <option key={color.id} value={color.id}>
+              {color.name}
+            </option>
+          ))}
+      </select>
+
+      <label className={styles.label}>
+        Добавить новый цвет:
+        <input
+          type="text"
+          placeholder="Название цвета"
+          onChange={(e) => setNewColorName(e.target.value)}
+        />
+        <input type="color" onChange={(e) => setNewColorHex(e.target.value)} />
+        <button type="button" onClick={handleAddNewColor}>
+          Добавить цвет
+        </button>
       </label>
 
       {/* можно добавить поля для изображений и цветов, например input[type="text"] по очереди */}

@@ -1,8 +1,9 @@
 // hooks/useCreateProductForm.ts
 import { useState } from 'react';
+import { FormData, Color } from '../types/formData';
 
 export const useCreateProductForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     price: 0,
     oldPrice: 0,
@@ -15,8 +16,8 @@ export const useCreateProductForm = () => {
     material: '',
     description: '',
     mainImage: '',
-    images: [] as File[],
-    colors: [{ id: '' }],
+    images: [],
+    colors: [],
   });
 
   const handleChange = (

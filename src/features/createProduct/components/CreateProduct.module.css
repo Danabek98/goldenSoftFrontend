@@ -4,12 +4,11 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+/* 
 /* Убирает стрелки в Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
 }
-
 .container {
   margin: 0 auto;
   width: 1440px;
@@ -54,4 +53,13 @@ textarea {
 
 h2 {
   text-align: center;
+}
+.selectedColorArea {
+  width: 150px;
+  margin: 20px auto;
+}
+.selectedColor {
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
 }
